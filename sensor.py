@@ -14,7 +14,7 @@ motion_threshold = motion_threshold_low
 
 file_path = os.getcwd()
 logger = logging.getLogger("sensor")
-log_handler = logging.handlers.RotatingFileHandler(file_path + "/logs/sensor.log", maxBytes=7168, backupCount=5)
+log_handler = logging.handlers.TimedRotatingFileHandler(file_path + "/logs/sensor.log", when="midnight", backupCount=5)
 formatter = logging.Formatter("%(asctime)s %(levelname)s %(message)s")
 log_handler.setFormatter(formatter)
 logger.addHandler(log_handler)

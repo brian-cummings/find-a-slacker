@@ -1,9 +1,15 @@
-import requests, json, sys, os
+import json
+import os
+import requests
+import sys
+import sconfig
+
+
+uri = sconfig.slack_credentials("slack-credentials")["slack-webhook"]
+slack_token = sconfig.slack_credentials("slack-credentials")["slack-token"]
 
 
 def slack_status(present):
-    uri = os.environ.get("SLACKWEBHOOK", None)
-    slack_token = os.environ.get('SLACKTOKEN', None)
     base_uri = "https://slack.com/api/users.profile.set?token="
     if present:
         message = "&profile=%7B%22status_text%22%3A%22In%20his%20office%22%2C%22status_emoji%22%3A%22%3Aoffice%3A%22%7D"
