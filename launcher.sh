@@ -6,5 +6,3 @@ cd /
 cd home/pi/python/slacker
 { python startup.py; } &
 python sensor.py
-
-
