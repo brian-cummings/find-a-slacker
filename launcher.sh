@@ -4,8 +4,7 @@
 
 cd /
 cd home/pi/python/slacker
-python update_time.py
-python startup.py
+{ python startup.py; } &
 python sensor.py
 
 
