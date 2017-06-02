@@ -4,5 +4,9 @@
 
 cd /
 cd home/pi/python/slacker
-{ python startup.py; } &
+# Wait for network to be up (pinging Google)
+while ! ping -c 1 -W 1 8.8.8.8; do
+    sleep 1
+done
+python startup.py
 python sensor.py

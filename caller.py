@@ -1,9 +1,7 @@
 import json
-import os
-import requests
 import sys
+import requests
 import sconfig
-
 
 uri = sconfig.slack_credentials("slack-credentials")["slack-webhook"]
 slack_token = sconfig.slack_credentials("slack-credentials")["slack-token"]
