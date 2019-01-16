@@ -30,7 +30,7 @@ def slack_status(present):
 
 
 def slack_ip(ip):
-    ipmsg = "text=FindASlacker system online at" + ip
+    ipmsg = "FindASlacker system online at" + ip
     uri = messageURI + channelParam + "&text=" + ipmsg
     try:
         response = requests.post(url=uri)

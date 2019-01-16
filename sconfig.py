@@ -1,8 +1,8 @@
-import configparser
+import ConfigParser
 import os
 
 file_path = os.getcwd() + "/config.ini"
-config = configparser.ConfigParser()
+config = ConfigParser.ConfigParser()
 config.read(file_path)
 
 def slack_credentials(section):
