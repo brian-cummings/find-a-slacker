@@ -10,7 +10,7 @@ channelParam = "&channel=%23find-a-slacker"
 
 def slack_status(present):
     if present:
-        message = "&profile=%7B%22status_text%22%3A%22In%20his%20office%22%2C%22status_emoji%22%3A%22%3Aoffice%3A%22%7D"
+        message = "&profile=%7B%22status_text%22%3A%22At%20his%20desk%22%2C%22status_emoji%22%3A%22%3Aoffice%3A%22%7D"
     else:
         message = "&profile=%7B%22status_text%22%3A%22Somewhere%20else%22%2C%22status_emoji%22%3A%22%3Aquestion%3A%22" \
                   "%7D "
