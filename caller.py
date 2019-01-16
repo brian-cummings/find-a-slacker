@@ -1,20 +1,20 @@
-import json
 import sys
 import requests
 import sconfig
 
-uri = sconfig.slack_credentials("slack-credentials")["slack-webhook"]
 slack_token = sconfig.slack_credentials("slack-credentials")["slack-token"]
+messageURI = "https://slack.com/api/chat.postMessage?token=" + slack_token
+statusURI = "https://slack.com/api/users.profile.set?token=" + slack_token
+channelParam = "&channel=%23find-a-slacker"
 
 
 def slack_status(present):
-    base_uri = "https://slack.com/api/users.profile.set?token="
     if present:
         message = "&profile=%7B%22status_text%22%3A%22In%20his%20office%22%2C%22status_emoji%22%3A%22%3Aoffice%3A%22%7D"
     else:
         message = "&profile=%7B%22status_text%22%3A%22Somewhere%20else%22%2C%22status_emoji%22%3A%22%3Aquestion%3A%22" \
                   "%7D "
-    full_uri = base_uri + slack_token + message
+    full_uri = statusURI + message
     try:
         response = requests.get(full_uri)
     except KeyboardInterrupt:
@@ -30,10 +30,10 @@ def slack_status(present):
 
 
 def slack_ip(ip):
-    ipmsg = dict(text="FindASlacker system online at " + ip)
-    JSONMessage = json.dumps(ipmsg)
+    ipmsg = "text=FindASlacker system online at" + ip
+    uri = messageURI + channelParam + "&text=" + ipmsg
     try:
-        response = requests.post(url=uri, data=JSONMessage)
+        response = requests.post(url=uri)
     except KeyboardInterrupt:
         sys.exit()
     except:
@@ -44,10 +44,9 @@ def slack_ip(ip):
 
 
 def slack_message(message):
-    msg = dict(text=message)
-    JSONMessage = json.dumps(msg)
+    uri = messageURI + channelParam + "&text=" + message
     try:
-        response = requests.post(url=uri, data=JSONMessage)
+        response = requests.post(url=uri)
     except KeyboardInterrupt:
         sys.exit()
     except:
