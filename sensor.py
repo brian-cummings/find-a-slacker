@@ -19,7 +19,7 @@ formatter = logging.Formatter("%(asctime)s %(levelname)s %(message)s")
 log_handler.setFormatter(formatter)
 logger.addHandler(log_handler)
 logger.setLevel(logging.INFO)
-
+wfhWait = 120
 
 while True:
     count = 0
@@ -43,13 +43,20 @@ while True:
         logger.info(message)
         time.sleep(5)
     else:
-        pir_status = motion
-        status_code = caller.slack_status(motion)
-        if motion:
-            message = "Motion Detected! (: " + str(motion_index)
-            caller.slack_message (message)
+        statusEmoji = caller.slack_get_status_emoji()
+        if statusEmoji == ":house_with_garden:":
+            message = "WFH Detected, waiting " + str(wfhWait) + " seconds"
+            caller.slack_message(message)
             logger.info(message)
+            time.sleep(wfhWait)
         else:
-            message = "Motion NOT Detected! ): " + str(motion_index)
-            caller.slack_message (message)
+            pir_status = motion
+            status_code = caller.slack_status(motion)
+            if motion:
+                message = "Motion Detected! (: " + str(motion_index)
+                caller.slack_message(message)
+                logger.info(message)
+            else:
+                message = "Motion NOT Detected! ): " + str(motion_index)
+                caller.slack_message(message)
 
