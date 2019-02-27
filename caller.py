@@ -56,6 +56,7 @@ def slack_message(message):
         pass
         # return (response.status_code)
 
+
 def slack_get_status_emoji():
     uri = getStatusURI
     try:
