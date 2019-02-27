@@ -4,7 +4,8 @@ import sconfig
 
 slack_token = sconfig.slack_credentials("slack-credentials")["slack-token"]
 messageURI = "https://slack.com/api/chat.postMessage?token=" + slack_token
-statusURI = "https://slack.com/api/users.profile.set?token=" + slack_token
+getStatusURI = "https://slack.com/api/users.profile.get?token=" + slack_token
+postStatusURI = "https://slack.com/api/users.profile.set?token=" + slack_token
 channelParam = "&channel=%23find-a-slacker"
 
 
@@ -14,7 +15,7 @@ def slack_status(present):
     else:
         message = "&profile=%7B%22status_text%22%3A%22Somewhere%20else%22%2C%22status_emoji%22%3A%22%3Aquestion%3A%22" \
                   "%7D "
-    full_uri = statusURI + message
+    full_uri = postStatusURI + message
     try:
         response = requests.get(full_uri)
     except KeyboardInterrupt:
@@ -54,3 +55,14 @@ def slack_message(message):
         # print(e)
         pass
         # return (response.status_code)
+
+def slack_get_status_emoji():
+    uri = getStatusURI
+    try:
+        response = requests.get(url=uri)
+        responseData = response.json()
+        statusEmoji = responseData['profile']['status_emoji']
+    except:
+        pass
+    return statusEmoji
+
